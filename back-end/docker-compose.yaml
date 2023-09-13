@@ -2,10 +2,10 @@ version: '3.1'
 services:
   mongo:
     image: mongo
-    restart: "never"
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: strongrootpassword
+      MONGO_INITDB_ROOT_PASSWORD: yoursecretpassword
       MONGO_INITDB_DATABASE: notedb
       MONGO_DB_URL: mongodb://localhost:27017/notedb
     ports:
