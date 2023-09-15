@@ -1,0 +1,16 @@
+.fab {
+  background-color: #dac0a3;
+  color: #102c57;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: "0px 4px 10px rgba(0,0,0,0.2)";
+  border: none;
+}

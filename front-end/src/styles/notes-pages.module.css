@@ -1,0 +1,11 @@
+.note {
+  height: 200px;
+  min-width: 150px;
+  transition: all ease-in-out 0.2s;
+}
+
+.note:hover {
+  cursor: pointer;
+  background-color: lightblue;
+  color: black;
+}
