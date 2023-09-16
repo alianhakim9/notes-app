@@ -1,6 +1,6 @@
 ![image](https://github.com/alianhakim9/notes-app/assets/51102459/fb578410-91c6-478f-a5c8-49ccb2750e1e)
 # notes-app
-The purpose of this project is to find out how to use the React JS framework which is integrated with the Express framework and Mongo DB which includes CRUD operation and authentication using TypeScript
+The purpose of this project is to find out how to use the React JS framework which is integrated with the Express framework as RESTful API and MongoDB as database, which includes CRUD operation and user authentication using TypeScript
 
 ## BE : Docker Compose
 ```
