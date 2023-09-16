@@ -1,8 +1,11 @@
 ![image](https://github.com/alianhakim9/notes-app/assets/51102459/fb578410-91c6-478f-a5c8-49ccb2750e1e)
+
 # notes-app
+
 The purpose of this project is to find out how to use the React JS framework which is integrated with the Express framework as RESTful API and MongoDB as database, which includes CRUD operation and user authentication using TypeScript
 
 ## BE : Docker Compose
+
 ```
 version: '3.1'
 services:
@@ -21,11 +24,17 @@ services:
 ```
 
 ## BE Instalation
+
 > npm install
 
 > npm run dev
 
 ## FE Instalation
+
 > npm install
 
 > npm start
+
+## POSTMAN Testing
+
+[POSTMAN Testing Example]('https://schema.postman.com/json/collection/v2.1.0/collection.json)
