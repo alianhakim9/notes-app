@@ -22,8 +22,10 @@ services:
 
 ## BE Instalation
 > npm install
+
 > npm run dev
 
 ## FE Instalation
 > npm install
+
 > npm start
