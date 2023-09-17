@@ -1,8 +1,8 @@
-import styles from "../styles/note.module.css";
-import styleUtils from "../styles/utils.module.css";
+import styles from "../../styles/note.module.css";
+import styleUtils from "../../styles/utils.module.css";
 import { Card } from "react-bootstrap";
-import { Note as NoteModel } from "../models/note";
-import { formatDate } from "../utils/format-date";
+import { Note as NoteModel } from "../../models/note";
+import { formatDate } from "../../utils/format-date";
 import { MdDelete } from "react-icons/md";
 interface NoteProps {
   note: NoteModel;

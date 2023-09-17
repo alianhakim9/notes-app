@@ -1,129 +1,79 @@
-import { useEffect, useState } from "react";
-import { Note } from "./models/note";
-import { Row, Col, Container, Spinner } from "react-bootstrap";
-import CardNote from "./components/CardNote";
-import FloatingActionButton from "./components/FloatingActionButton";
-import styles from "./styles/notes-pages.module.css";
+import { Container } from "react-bootstrap";
 import styleUtils from "./styles/utils.module.css";
-import * as notesApi from "./network/notes.api";
-import AddEditNoteDialog from "./components/AddEditNoteDialog";
+import LoginModal from "./components/LoginModal";
+
+import CustomNavbar from "./components/navbar/CustomNavbar";
+import { useEffect, useState } from "react";
+import { User } from "./models/user";
+import * as authApi from "./network/auth.api";
+import SignUpModal from "./components/SignUpModal";
+import NotesPageLoggedInView from "./components/notes/NotesPageLoggedInView";
+import NotesPageLoggedOutView from "./components/notes/NotesPageLoggedOutView";
 
 function App() {
-  const [notes, setNotes] = useState<Array<Note>>([]);
-  const [notesLoading, setNotesLoading] = useState(true);
-  const [showNotesLoadingError, setShowNotesLoadingError] = useState(false);
-  const [showAddNoteDialog, setshowAddNoteDialog] = useState(false);
-  const [noteToEdit, setNoteToEdit] = useState<Note | null>(null);
+  const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
+
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
-    async function loadNotes() {
+    async function getLoggedInUser() {
       try {
-        setShowNotesLoadingError(false);
-        setNotesLoading(true);
-        const notes = await notesApi.fetchNotes();
-        setNotes(notes);
+        const user = await authApi.getLoggedInUser();
+        setLoggedInUser(user);
       } catch (error) {
         console.error(error);
-        setShowNotesLoadingError(true);
-      } finally {
-        setNotesLoading(false);
       }
     }
-    loadNotes();
+    getLoggedInUser();
   }, []);
 
-  async function deleteNote(note: Note) {
-    try {
-      await notesApi.deleteNote(note._id);
-      setNotes(notes.filter((existingNote) => existingNote._id !== note._id));
-    } catch (error) {
-      console.error(error);
-      alert(error);
-    }
-  }
-
-  const NotesGrid = (
-    <Row xs={1} md={2} xl={3} className="g-4">
-      {notes &&
-        notes.map((note) => (
-          <Col md={6} sm={12} lg={6} key={note._id}>
-            <CardNote
-              note={note}
-              className={styles.note}
-              onDeleteNoteClicked={() => {
-                deleteNote(note);
-              }}
-              onNoteClicked={(note) => setNoteToEdit(note)}
-            />
-          </Col>
-        ))}
-    </Row>
-  );
-
   return (
-    <Container>
-      <div className={styleUtils.blockCenter}>
-        <h1>Note App</h1>
-        <p className="lead">
-          This project build to learn React JS with Express & Mongo DB
-        </p>
-      </div>
-      {notesLoading && (
-        <Spinner
-          animation="border"
-          variant="primary"
-          className="text-center m-auto d-block"
-        />
-      )}
-      {showNotesLoadingError && (
-        <p className="text-danger">
-          Something went wrong, please refresh the page :)
-        </p>
-      )}
-      {!notesLoading && !showNotesLoadingError && (
-        <>
-          {notes.length > 0 ? (
-            NotesGrid
-          ) : (
-            <p className="text-center mt-4">Notes is empty, create note now!</p>
-          )}
-        </>
-      )}
-      <FloatingActionButton
-        handleClick={() => {
-          setshowAddNoteDialog(true);
+    <>
+      <CustomNavbar
+        loggedInUser={loggedInUser}
+        onLoginClicked={() => {
+          setShowLoginModal(true);
+        }}
+        onLogoutSuccessful={() => {
+          setLoggedInUser(null);
+        }}
+        onSignUpClicked={() => {
+          setShowSignUpModal(true);
         }}
       />
-      {showAddNoteDialog && (
-        <AddEditNoteDialog
-          isShow={showAddNoteDialog}
+      <Container>
+        <div className={styleUtils.blockCenter}>
+          <h1>Note App</h1>
+          <p className="lead">
+            This project build to learn React JS with Express & Mongo DB
+          </p>
+        </div>
+        {loggedInUser ? <NotesPageLoggedInView /> : <NotesPageLoggedOutView />}
+      </Container>
+      {showSignUpModal && (
+        <SignUpModal
           onDismiss={() => {
-            setshowAddNoteDialog(false);
+            setShowSignUpModal(false);
           }}
-          onNoteSave={(newNote) => {
-            setNotes([...notes, newNote]);
-            setshowAddNoteDialog(false);
+          onSignUpSuccessfull={(user) => {
+            setLoggedInUser(user);
+            setShowSignUpModal(false);
           }}
         />
       )}
-      {noteToEdit && (
-        <AddEditNoteDialog
-          noteToEdit={noteToEdit}
-          onDismiss={() => setNoteToEdit(null)}
-          onNoteSave={(updatedNote) => {
-            setNotes(
-              notes.map((existingNote) =>
-                existingNote._id === updatedNote._id
-                  ? updatedNote
-                  : existingNote
-              )
-            );
-            setNoteToEdit(null);
+      {showLoginModal && (
+        <LoginModal
+          onDismiss={() => {
+            setShowLoginModal(false);
           }}
-          isShow={true}
+          onLoginSuccessful={(user) => {
+            setLoggedInUser(user);
+            setShowLoginModal(false);
+          }}
         />
       )}
-    </Container>
+    </>
   );
 }
 
