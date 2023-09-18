@@ -23,7 +23,7 @@ const NavBarLoggedInView = ({
 
   return (
     <>
-      <Navbar.Text className="me-2">Sign in as : {user.username}</Navbar.Text>
+      <Navbar.Text className="me-2">Signed as : {user.username}</Navbar.Text>
       <Button onClick={logout}>Logout</Button>
     </>
   );

@@ -4,7 +4,7 @@ import NavBarLoggedInView from "./NavBarLoggedInView";
 import NavBarLogoutView from "./NavBarLogoutView";
 
 interface NavBarProps {
-  loggedInUser?: User | null;
+  loggedInUser: User | null;
   onSignUpClicked: () => void;
   onLoginClicked: () => void;
   onLogoutSuccessful: () => void;
