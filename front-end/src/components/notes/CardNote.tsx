@@ -1,9 +1,11 @@
 import styles from "../../styles/note.module.css";
 import styleUtils from "../../styles/utils.module.css";
+
 import { Card } from "react-bootstrap";
 import { Note as NoteModel } from "../../models/note";
-import { formatDate } from "../../utils/format-date";
+import { formatDate } from "../../utils/FormatDate";
 import { MdDelete } from "react-icons/md";
+
 interface NoteProps {
   note: NoteModel;
   onNoteClicked: (note: NoteModel) => void;

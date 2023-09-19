@@ -1,14 +1,16 @@
-import { Container } from "react-bootstrap";
-import styleUtils from "./styles/utils.module.css";
+import * as authApi from "./network/AuthApi";
 import LoginModal from "./components/LoginModal";
-
 import CustomNavbar from "./components/navbar/CustomNavbar";
+import SignUpModal from "./components/SignUpModal";
+
+import NotePage from "./pages/NotePage";
+import NotFoundPage from "./pages/NotFoundPage";
+import PrivacyPage from "./pages/PrivacyPage";
+
+import { BrowserRouter, Route, Routes, Router } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { User } from "./models/user";
-import * as authApi from "./network/auth.api";
-import SignUpModal from "./components/SignUpModal";
-import NotesPageLoggedInView from "./components/notes/NotesPageLoggedInView";
-import NotesPageLoggedOutView from "./components/notes/NotesPageLoggedOutView";
+import { Container } from "react-bootstrap";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState<User | null>(null);
@@ -30,27 +32,25 @@ function App() {
 
   return (
     <>
-      <CustomNavbar
-        loggedInUser={loggedInUser}
-        onLoginClicked={() => {
-          setShowLoginModal(true);
-        }}
-        onLogoutSuccessful={() => {
-          setLoggedInUser(null);
-        }}
-        onSignUpClicked={() => {
-          setShowSignUpModal(true);
-        }}
-      />
-      <Container>
-        <div className={styleUtils.blockCenter}>
-          <h1>Note App</h1>
-          <p className="lead">
-            This project build to learn React JS with Express & Mongo DB
-          </p>
-        </div>
-        {loggedInUser ? <NotesPageLoggedInView /> : <NotesPageLoggedOutView />}
-      </Container>
+      <BrowserRouter>
+        <CustomNavbar
+          loggedInUser={loggedInUser}
+          onLoginClicked={() => {
+            setShowLoginModal(true);
+          }}
+          onLogoutSuccessful={() => {
+            setLoggedInUser(null);
+          }}
+          onSignUpClicked={() => {
+            setShowSignUpModal(true);
+          }}
+        />
+        <Routes>
+          <Route path="/" element={<NotePage loggedInUser={loggedInUser} />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
       {showSignUpModal && (
         <SignUpModal
           onDismiss={() => {

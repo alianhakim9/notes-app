@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import * as notesApi from "../../network/NotesApi";
 import FloatingActionButton from "../FloatingActionButton";
 import AddEditNoteDialog from "./AddEditNoteDialog";
+
+import CardNote from "./CardNote";
+import styles from "../../styles/notes-pages.module.css";
+
+import { useEffect, useState } from "react";
 import { Note } from "../../models/note";
 import { Row, Col, Spinner } from "react-bootstrap";
-import CardNote from "./CardNote";
-import * as notesApi from "../../network/notes.api";
-import styles from "../../styles/notes-pages.module.css";
 
 const NotesPageLoggedInView = () => {
   const [notes, setNotes] = useState<Array<Note>>([]);

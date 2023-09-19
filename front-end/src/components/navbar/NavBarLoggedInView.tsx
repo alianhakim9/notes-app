@@ -1,6 +1,7 @@
+import * as authApi from "../../network/AuthApi";
+
 import { Button, Navbar } from "react-bootstrap";
 import { User } from "../../models/user";
-import * as authApi from "../../network/auth.api";
 
 interface NavBarLoggedInProps {
   user: User;

@@ -1,8 +1,10 @@
+import * as notesApi from "../../network/NotesApi";
+
 import { Button, Form, Modal } from "react-bootstrap";
 import { Note } from "../../models/note";
 import { useForm } from "react-hook-form";
-import { NoteInput } from "../../network/notes.api";
-import * as notesApi from "../../network/notes.api";
+import { NoteInput } from "../../network/NotesApi";
+
 import TextInputField from "../form/TextInputField";
 import styleUtils from "../../styles/utils.module.css";
 

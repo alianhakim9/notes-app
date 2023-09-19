@@ -1,5 +1,5 @@
 import { User } from "../models/user";
-import { fetchData } from "./notes.api";
+import { fetchData } from "./NotesApi";
 
 export async function getLoggedInUser(): Promise<User> {
   const response = await fetchData("/api/users", {

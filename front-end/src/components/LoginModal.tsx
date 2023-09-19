@@ -1,8 +1,10 @@
+import * as authApi from "../network/AuthApi";
+
 import { useForm } from "react-hook-form";
 import { User } from "../models/user";
-import { LoginCredentials } from "../network/auth.api";
-import * as authApi from "../network/auth.api";
+import { LoginCredentials } from "../network/AuthApi";
 import { Button, Form, Modal } from "react-bootstrap";
+
 import TextInputField from "./form/TextInputField";
 import styleUtils from "../styles/utils.module.css";
 
